@@ -1,0 +1,9 @@
+pandas
+numpy
+sympy
+matplotlib
+scipy
+ipython
+ipykernel
+openpyxl
+jinja2

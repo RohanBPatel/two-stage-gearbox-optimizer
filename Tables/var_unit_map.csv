@@ -1,0 +1,94 @@
+Python_Var,LaTeX_Var,Unit
+part_number,Part \#,N/A
+number,Gear \#,N/A
+gear_ratio_m,$m_G$,N/A
+name,Material,N/A
+S_ut_MPa,$S_{ut}$,MPa
+S_y_MPa,$S_{y}$,MPa
+H_B,$H_B$,HBW
+N,$N$,teeth
+module,$m$,mm
+phi,$\phi$,deg
+F,face width $F$,mm
+d,pitch diam. $d$,mm
+p,$p$,mm
+ID,$ID$,mm
+addendum,addendum $a$,mm
+dedendum,dedendum $b$,mm
+sigma_b,$\sigma_b$,MPa
+sigma_c,$\sigma_c$,MPa
+sigma_b_all,$(\sigma_b)_{all}$,MPa
+sigma_c_all,$(\sigma_c)_{all}$,MPa
+S_t,$S_t$,MPa
+S_c,$S_c$,MPa
+T,$T$,N-m
+W_t,$W_t$,N
+W_r,$W_r$,N
+W,$W$,N
+V,$V$,m/s
+L,$L$,m
+width,$w$,mm
+C_10,$C_{10}$,N
+F_R,$F_R$,N
+F_D,$F_D$,N
+L_D,$L_D$,cycless
+n_rpm,$n$,rpm
+omega,$\omega$,rad/s
+center_d,$C$,mm
+r,$r$,mm
+a,$a_{groove}$,mm
+t,$t_{groove}$,mm
+h,$h_{key}$,mm
+w,$w_{key}$,mm
+l,$l_{key}$,mm
+n_b,$n_b$,FOS
+n_c,$n_c$,FOS
+n_shear,$n_{shear}$,FOS
+n_crush,$n_{crush}$,FOS
+n_fatigue_ring_1,$n_{fatigue-ring-1}$,FOS
+n_fatigue_ring_2,$n_{fatigue-ring-2}$,FOS
+n_fatigue_shoulder_1,$n_{fatigue-shoulder-1}$,FOS
+n_fatigue_shoulder_2,$n_{fatigue-shoulder-2}$,FOS
+n_fatigue_shoulder_A,$n_{fatigue-shoulder-A}$,FOS
+n_fatigue_shoulder_B,$n_{fatigue-shoulder-B}$,FOS
+n_fatigue_keyway_1,$n_{fatigue-keyway-1}$,FOS
+n_fatigue_keyway_2,$n_{fatigue-keyway-2}$,FOS
+n_yield_shoulder_1,$n_{yield-shoulder-1}$,FOS
+n_yield_shoulder_2,$n_{yield-shoulder-2}$,FOS
+n_yield_shoulder_A,$n_{yield-shoulder-A}$,FOS
+n_yield_shoulder_B,$n_{yield-shoulder-B}$,FOS
+n_yield_ring_1,$n_{yield-ring-1}$,FOS
+n_yield_ring_2,$n_{yield-ring-2}$,FOS
+n_yield_keyway_1,$n_{yield-keyway-1}$,FOS
+n_yield_keyway_2,$n_{yield-keyway-2}$,FOS
+depth,depth $D$,mm
+min_fos_key,Critical FOS,N/A
+min_fos,$n_{min}$,FOS
+median_fos,$n_{median}$,FOS
+d_gear_1,$d_{G1}$,mm
+d_gear_2,$d_{G2}$,mm
+d_shoulder,$d_{shoulder}$,mm
+L_A,$L_A$,m
+L_B,$L_B$,m
+R_A_y,$R_{Ay}$,N
+R_A_z,$R_{Az}$,N
+R_B_y,$R_{By}$,N
+R_B_z,$R_{Bz}$,N
+R_A,$R_A$,N
+R_B,$R_B$,N
+L_shoulder_1,$L_{shoulder1}$,m
+L_shoulder_2,$L_{shoulder2}$,m
+L_ring_1,$L_{ring1}$,m
+C_pf,$C_{pf}$,N/A
+C_ma,$C_{ma}$,N/A
+K_H,$K_H$,N/A
+Y_theta,$Y_\theta$,N/A
+Y_Z,$Y_Z$,N/A
+Y_N,$Y_N$,N/A
+Z_N,$Z_N$,N/A
+D,$D$,mm
+a_t,$a/t$,N/A
+r_t,$r/t$,N/A
+K_t,$K_t$,N/A
+K_ts,$K_{ts}$,N/A
+L_cycles,$N$,cycles
