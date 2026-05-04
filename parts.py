@@ -819,7 +819,7 @@ class Shaft:
     Gear 4 (stage-2 pinion) at x=L_2
     all forces N, moments N*m, lengths m, diameters mm, pressures MPa when possible
     
-    https://idraw.com/#json=4ci_CiCLtHcD406ka74OK,dnZGRLAlc2NcMtxoqYGUow
+    https://excalidraw.com/#json=4ci_CiCLtHcD406ka74OK,dnZGRLAlc2NcMtxoqYGUow
     """
     def __init__(
         self,
@@ -1063,10 +1063,6 @@ class Shaft:
         assert np.isclose(self.reactions[R_Bz], self.R_B_z)
 
         return syms, numerics
-    
-    @staticmethod
-    def label(var):
-        return f"${var}$ " + ("(N)" if "V" in var else "(N-m)")
 
     def plot_shaft(self, xs, is_saving=False):
         fig, ax = plt.subplots(dpi=200)
@@ -1128,6 +1124,9 @@ class Shaft:
 
         if not show_VMT:
             return None
+        
+        def label(var: str):
+            return f"${var}$ " + ("(N)" if "V" in var else "(N-m)")
 
         # components
         fig, axs = plt.subplots(4, 1, figsize=(6, 8), sharex=True, dpi=150)
@@ -1138,7 +1137,7 @@ class Shaft:
             axs[i].plot(xs, y, lw=1.5)
             axs[i].grid()
             axs[i].axhline(0, ls='--', color="gray") # lw=0.5
-            axs[i].set_ylabel(Shaft.label(var))
+            axs[i].set_ylabel(label(var))
         axs[-1].set_xlabel("$x$ (m)")
         if is_saving:
             fig.savefig(fig_path / "V_M_components.png")
@@ -1152,7 +1151,7 @@ class Shaft:
             axs[i].plot(xs, y, lw=1.5)
             axs[i].grid()
             axs[i].axhline(0, ls='--', color="gray") # lw=0.5
-            axs[i].set_ylabel(Shaft.label(var))
+            axs[i].set_ylabel(label(var))
         axs[-1].set_xlabel("$x$ (m)")
         if is_saving:
             fig.savefig(fig_path / "V_M_T_resultants.png")
@@ -1464,7 +1463,8 @@ class Gearbox:
             radius_shoulder_A = self.shaft.bearing_A.r,
             radius_shoulder_B = self.shaft.bearing_B.r
         )
-        df = pd.DataFrame(list(data.items()), columns=["Parameter", "Value"])
+        df = pd.DataFrame.from_dict(data, orient="index").reset_index()
+        df.columns = ["Parameter", "Value"]
         df.to_excel("Parameters.xlsx", index=False)
 
         print("Exported Parameters")
