@@ -1,0 +1,9 @@
+| Name             | Unit   | Opt Name                               |   Min Bounds |   Max Bounds |   Min Opt Bounds |   Max Opt Bounds | Notes                                                 |
+|:-----------------|:-------|:---------------------------------------|-------------:|-------------:|-----------------:|-----------------:|:------------------------------------------------------|
+| F_1              | mm     | F_1_over_module_1                      |      9.42478 |       15.708 |                0 |                1 | stage 1 face width                                    |
+| F_2              | mm     | F_2_over_module_2                      |      9.42478 |       15.708 |                0 |                1 | stage 2 face width                                    |
+| L_1              | m      | L_1_over_L                             |      0.1     |        0.5   |                0 |                1 | stage 1 gear position                                 |
+| L_2              | m      | L_2_over_L                             |      0.5     |        0.9   |                0 |                1 | stage 2 gear position                                 |
+| d_shaft_gear_1   | mm     | d_shaft_gear_1                         |      5       |       50     |                0 |                1 | nominal gear ID, shaft diameter for stage 1 gear side |
+| d_shaft_gear_2   | mm     | d_shaft_gear_2                         |      5       |       35     |                0 |                1 | nominal gear ID, shaft diameter for stage 2 gear side |
+| d_shaft_shoulder | mm     | d_shaft_shoulder_over_max_d_shaft_gear |      1.01    |        2     |                0 |                1 | shoulder diameter                                     |

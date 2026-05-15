@@ -7,3 +7,4 @@ ipython
 ipykernel
 openpyxl
 jinja2
+tabulate

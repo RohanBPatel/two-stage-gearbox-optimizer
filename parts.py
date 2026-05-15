@@ -590,7 +590,6 @@ class GearTrain:
         self.gear.n_b = self.gear.bending_f_o_s(self.W_t, self.V, self.pinion.N, self.gear.n_rpm)
         self.gear.n_c = self.gear.contact_f_o_s(self.W_t, self.pinion.d, self.V, self.gear_ratio_m, self.gear.n_rpm)
 
-
     @staticmethod
     def min_teeth(m, phi):
         """
@@ -1234,7 +1233,28 @@ def optim_variables() -> pd.DataFrame:
     df["Bounds Range"] = df["Max Bounds"] - df["Min Bounds"]
     return df
 
+def export_optim_vars_df(optim_vars_df: pd.DataFrame) -> None:
+    export_optim_vars_df = optim_vars_df.loc[
+        :,~optim_vars_df.columns.str.contains("Range", case=False)
+    ].drop(columns=["Discrete?", "From List?"])
+
+    optim_vars_dfs = {
+        "": export_optim_vars_df,
+        "_from_list": export_optim_vars_df[optim_vars_df["From List?"]],
+        "_discrete": export_optim_vars_df[
+            ~optim_vars_df["From List?"] & optim_vars_df["Discrete?"]
+        ].drop(columns=["List"]),
+        "_continuous": export_optim_vars_df[
+            ~optim_vars_df["Discrete?"]
+        ].drop(columns=["List"])
+    }
+
+    for end, df in optim_vars_dfs.items():
+        df.to_csv(out_table_path / f"opt_vars{end}.csv", index=False)
+        df.to_markdown(out_table_path / f"opt_vars{end}.md", index=False)
+
 optim_vars_df = optim_variables()
+export_optim_vars_df(optim_vars_df)
 
 def unscale(x, df=optim_vars_df):
     return ((((x - df["Min Opt Bounds"]) / df["Opt Bounds Range"]) * df["Bounds Range"]) + df["Min Bounds"]).to_numpy()
@@ -1391,6 +1411,10 @@ class Gearbox:
 
     @classmethod
     def from_scaled(cls, x):
+        """
+        construct Gearbox object from scaled/normalized input vector x
+        used with optimization variables described in Variables.xlsx
+        """
         cls.df, cls.kwargs = cls.from_scaled_kwargs(x)
         return cls(**cls.kwargs) # calls the __init__ constructor
     

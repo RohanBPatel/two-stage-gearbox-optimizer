@@ -1,0 +1,3 @@
+Name,Unit,Opt Name,Min Bounds,Max Bounds,Min Opt Bounds,Max Opt Bounds,Notes
+N_2,,N_2_minus_min,0.0,15.0,0.0,15.0,number of teeth in gear 2
+N_4,,N_4_minus_min,0.0,15.0,0.0,15.0,number of teeth in gear 4

@@ -1,0 +1,7 @@
+| Name         | Unit   | Opt Name         | List                                      |   Min Bounds |   Max Bounds |   Min Opt Bounds |   Max Opt Bounds | Notes                  |
+|:-------------|:-------|:-----------------|:------------------------------------------|-------------:|-------------:|-----------------:|-----------------:|:-----------------------|
+| gear_ratio_1 | nan    | gear_ratio_idx_1 | [ 2  4  5 10]                             |            0 |            3 |                0 |                3 | stage 1  gear ratio    |
+| module_1     | mm     | module_idx_1     | [0.5 0.8 1.  1.5 2.  2.5 3.  4.  5.  6. ] |            0 |            9 |                0 |                9 | stage 1 module         |
+| module_2     | mm     | module_idx_2     | [0.5 0.8 1.  1.5 2.  2.5 3.  4.  5.  6. ] |            0 |            9 |                0 |                9 | stage 2 module         |
+| phi_1        | deg    | phi_idx_1        | [14.5 20. ]                               |            0 |            1 |                0 |                1 | stage 1 pressure angle |
+| phi_2        | deg    | phi_idx_2        | [14.5 20. ]                               |            0 |            1 |                0 |                1 | stage 2 pressure angle |
