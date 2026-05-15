@@ -59,7 +59,6 @@ def format_value(x):
         return f"{x:.3f}"
     return str(x)
 
-# check this again to make sure all are correct
 # could add notes column to this
 var_unit_map_df = pd.read_csv(table_path / "var_unit_map.csv").set_index("Python_Var")
 var_unit_map = var_unit_map_df.to_dict(orient="index")
@@ -267,13 +266,12 @@ class Material:
 generic_steel = Material("AISI 1045 CD", 630, 530, 179)
 
 # iter 2
-shaft_steel = Material("AISI 4130 Q/T at 205 C", 1630, 1460, 467)
 # shaft_steel = Material("AISI 1050 CD", 690, 580, 197)
+shaft_steel = Material("AISI 4130 Q/T at 205 C", 1630, 1460, 467)
 
-# old: https://us.c.misumi-ec.com/book/MSM1_USA_01/pdf/1107.pdf
-# old: https://us.c.misumi-ec.com/book/MSM1_USA_01/pdf/1108.pdf
-
-# new: scrape this?
+# old gear links: 
+# https://us.c.misumi-ec.com/book/MSM1_USA_01/pdf/1107.pdf
+# https://us.c.misumi-ec.com/book/MSM1_USA_01/pdf/1108.pdf
 # https://us.c.misumi-ec.com/book/usa_2019_msm_fa/900/1540.jpg
 # https://us.c.misumi-ec.com/book/usa_2019_msm_fa/900/1541.jpg
 
@@ -283,8 +281,6 @@ shaft_steel = Material("AISI 4130 Q/T at 205 C", 1630, 1460, 467)
 # 55 HRC -> 552 HB
 gear_steel = Material(r"\makecell{Induction\\Hardened\\AISI 1045}", 630, 530, 513)
 # 570~750
-
-# copy hardness from misumi tables. scrape misumi
 
 class Gear:
     # Table 14-9. Electric motor is a very uniform power source. Go-kart tracks are smooth. However, go-karts encounter curb hits and heavy breaking. Light-moderate shock is used.
@@ -682,6 +678,9 @@ class RetainingRing:
         if not cls._loaded:
             cls.load_data()
 
+    def print(self):
+        pprint.pprint(vars(self))
+
 class Key:
     # Table 7-1
     K_t = 2.14
@@ -711,7 +710,7 @@ class Key:
         self.w = w # mm
         self.h = h # mm
 
-        self.material = Key.material # here so picked up by table export
+        self.material = Key.material # this is here so it can be included in table exports
 
         # If L is provided, it overrides gear_hub_width
         if self.L is None:
@@ -809,6 +808,9 @@ class Bearing:
         self.F_R = self.F_D * (self.L_D / (Bearing.a_1 * self.L_R))**(1 / Bearing.a) # N
         if self.C_10 is not None:
             assert self.F_R < self.C_10, "C_10 given as optional argument is greater than calculated rated life"
+
+    def print(self):
+        pprint.pprint(vars(self))
 
 class Shaft:
     """
@@ -1207,6 +1209,7 @@ class Shaft:
     def print(self):
         pprint.pprint(vars(self))
 
+# move to Gearbox class
 def optim_variables() -> pd.DataFrame:
     df = pd.read_excel("Variables.xlsx")
 
@@ -1236,7 +1239,7 @@ def optim_variables() -> pd.DataFrame:
 def export_optim_vars_df(optim_vars_df: pd.DataFrame) -> None:
     export_optim_vars_df = optim_vars_df.loc[
         :,~optim_vars_df.columns.str.contains("Range", case=False)
-    ].drop(columns=["Discrete?", "From List?"])
+    ].drop(columns=["Discrete?", "From List?"]) # returns copy
 
     optim_vars_dfs = {
         "": export_optim_vars_df,
@@ -1248,6 +1251,8 @@ def export_optim_vars_df(optim_vars_df: pd.DataFrame) -> None:
             ~optim_vars_df["Discrete?"]
         ].drop(columns=["List"])
     }
+
+    optim_vars_dfs["_from_list"]["List"] = optim_vars_dfs["_from_list"]["List"].apply(lambda x: ", ".join(map(str, x)))
 
     for end, df in optim_vars_dfs.items():
         df.to_csv(out_table_path / f"opt_vars{end}.csv", index=False)
@@ -1264,7 +1269,7 @@ class Gearbox:
     
     def __init__(self, **kwargs):
         try:
-            self.df
+            self.df # exists if from_scaled classmethod is used
         except AttributeError as e:
             self.df = pd.DataFrame.from_dict(kwargs, orient="index", columns=["Name", "Value"])
             
@@ -1295,7 +1300,7 @@ class Gearbox:
         stage_1 = GearTrain(g_2, g_3, P, n_in)
         stage_2 = GearTrain(g_4, g_5, P, stage_1.gear.n_rpm)
 
-        # assumptions for optimizer
+        # used as assumptions for optimizer
         if bearing_A_width is None:
             bearing_A_width = 20.0 # mm
         if bearing_B_width is None:
@@ -1330,8 +1335,6 @@ class Gearbox:
 
         self.f_o_s()
 
-        # print(self.fos_arr)
-        # self.min_fos = np.min(self.fos_arr)
         self.min_fos_key = min(self.fos_dict, key=self.fos_dict.get)
         self.min_fos = self.fos_dict[self.min_fos_key]
 
@@ -1419,6 +1422,7 @@ class Gearbox:
         return cls(**cls.kwargs) # calls the __init__ constructor
     
     def f_o_s(self):
+        """creates fos_dict and fos_arr"""
         self.fos_dict = {
             "stage_1.pinion.n_b":   self.shaft.stage_1.pinion.n_b, # could remove
             "stage_1.pinion.n_c":   self.shaft.stage_1.pinion.n_c, # could remove
@@ -1456,10 +1460,6 @@ class Gearbox:
         df = self.df.copy()
         df = df[["Name", "Value"]]
 
-        # def cur_map(k):
-        #     return var_unit_map[k]["LaTeX_Var"]
-
-        # df["Name"] = df["Name"].apply(cur_map)
         df["Value"] = df["Value"].apply(format_value)
 
         export_latex_table(df[["Name", "Value"]], file_name) 
