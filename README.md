@@ -56,7 +56,7 @@ Edit the `manual_kwargs` dictionary in the notebook to evaluate another explicit
 python project_optimizer.py
 ```
 
-The optimizer uses SciPy's stochastic, population-based [`differential_evolution`](https://docs.scipy.org/doc/scipy-1.17.1/reference/generated/scipy.optimize.differential_evolution.html) solver over the bounds in `Variables.xlsx`.[^scipy-de] List-valued discrete variables, including gear ratio, module, and pressure angle, are represented as integer indices into predefined arrays. The remaining discrete variables are also integral, while continuous variables are normalized automatically for numerical stability. The Boolean `Discrete?` column is passed to SciPy through the solver's `integrality` argument, so the evolutionary search and polishing step preserve valid integer coordinates.
+The optimizer uses SciPy's stochastic, population-based [`differential_evolution`](https://docs.scipy.org/doc/scipy-1.17.0/reference/generated/scipy.optimize.differential_evolution.html) solver over the bounds in `Variables.xlsx`.[^scipy-de] List-valued discrete variables, including gear ratio, module, and pressure angle, are represented as integer indices into predefined arrays. The remaining discrete variables are also integral, while continuous variables are normalized automatically for numerical stability. The Boolean `Discrete?` column is passed to SciPy through the solver's `integrality` argument, so the evolutionary search and polishing step preserve valid integer coordinates.
 
 #### Optimized variables
 
@@ -191,4 +191,4 @@ Space between groove and gear is for the gear hub.
 
 [^shigley]: J. Keith Nisbett and Richard G. Budynas, *[Shigley's Mechanical Engineering Design](https://www.mheducation.com/highered/product/Shigleys-Mechanical-Engineering-Design-Nisbett.html)*, 2024 release, McGraw Hill, ISBN 978-1-265-47269-6.
 
-[^scipy-de]: SciPy Developers, "[`scipy.optimize.differential_evolution`](https://docs.scipy.org/doc/scipy-1.17.1/reference/generated/scipy.optimize.differential_evolution.html)," SciPy v1.17.1 API Reference. The documentation describes the solver, bounds, population-based search, multiprocessing support, and `integrality` behavior.
+[^scipy-de]: SciPy Developers, "[`scipy.optimize.differential_evolution`](https://docs.scipy.org/doc/scipy-1.17.0/reference/generated/scipy.optimize.differential_evolution.html)," SciPy v1.17.0 API Reference. The documentation describes the solver, bounds, population-based search, multiprocessing support, and `integrality` behavior.
